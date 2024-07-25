@@ -1,6 +1,7 @@
+// import { redirect } from "next/navigation"
+// import { getSession, login, logout } from '.lib'
 import Link from "next/link"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import Form from "@/components/form"
 
 export default function Component() {
   return (
@@ -133,28 +134,7 @@ export default function Component() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
-          <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Get Started with Transcript AI</h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Sign up today and start transcribing your videos with our powerful tools.
-              </p>
-            </div>
-            <div className="mx-auto w-full max-w-sm space-y-2">
-              <form className="flex gap-2">
-                <Input type="email" placeholder="Enter your email" className="max-w-lg flex-1" />
-                <Button type="submit">Sign Up</Button>
-              </form>
-              <p className="text-xs text-muted-foreground">
-                Sign up to get started. By signing up, you agree to our{" "}
-                <Link href="#" className="underline underline-offset-2" prefetch={false}>
-                  Terms &amp; Conditions
-                </Link>
-              </p>
-            </div>
-          </div>
-        </section>
+        <Form />
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-muted-foreground">&copy; 2024 Transcript AI. All rights reserved.</p>
