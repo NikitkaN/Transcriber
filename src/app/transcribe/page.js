@@ -206,7 +206,7 @@ export default function Component() {
                     </p>
                     <p className="mt-4">
                       First, let`s talk about the rise of artificial intelligence. AI has become a game-changer in many
-                      industries, from healthcare to finance. We'll explore how companies are using AI to automate
+                      industries, from healthcare to finance. We`ll explore how companies are using AI to automate
                       processes, improve decision-making, and enhance customer experiences.
                     </p>
                     <p className="mt-4">
