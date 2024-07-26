@@ -3,11 +3,13 @@ import { useState } from 'react'
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-
+import { useAuth } from '@/context'
 
 export default function Form() {
     const [isRegistering, setIsRegistering] = useState(false);
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
+    const { login } = useAuth();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -28,20 +30,15 @@ export default function Form() {
         try {
             let response;
             if (isRegistering) {
-                //Регистрация
-                response = await fetch('/api/sign-up', {
+                response = await fetch('./api/sign-up', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
                   },
                   body: JSON.stringify(formData),
                 });
-          
-                // const data = await response.json();
-                // console.log(data); // Обработка ответа от сервера
             } else {
-                // Вход
-                response = await fetch('/api/sign-in', {
+                response = await fetch('./api/sign-in', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -51,9 +48,6 @@ export default function Form() {
                     password: formData.password,
                   }),
                 });
-          
-                // const data = await response.json();
-                // console.log(data); // Обработка ответа от сервера
             }
 
             const data = await response.json();
@@ -61,16 +55,29 @@ export default function Form() {
             if (!response.ok) {
                 setError(data.message || 'An error occurred');
             } else {
-                console.log(data);
+                setMessage(data.message);
+                login();
             }
         } catch (error) {
             setError('An unexpected error occurred');
-        }
-        
+        }  
+    };
+
+    const handleLogout = async () => {
+      try {
+        const response = await fetch('./api/logout', {
+          method: 'GET'
+        });
+  
+        const data = await response.json();
+        setMessage(data.message);
+      } catch (error) {
+        setError('An unexpected error occurred');
+      }
     };
 
     return (
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section id="form" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
@@ -112,6 +119,7 @@ export default function Form() {
                 />
                 <Button type="submit">{isRegistering ? 'Sign Up' : 'Log In'}</Button>
                 {error && <p className="text-red-500">{error}</p>}
+                {message && <p className="text-green-500">{message}</p>}
               </form>
               <p className="text-xs text-muted-foreground">
                 {isRegistering ? 'Sign up to get started.' : 'Log in to continue.'} By signing up, you agree to our{' '}

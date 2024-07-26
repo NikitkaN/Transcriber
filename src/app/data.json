@@ -9,6 +9,16 @@
       "name": "John",
       "email": "john@mail.ru",
       "password": "12345678"
+    },
+    {
+      "name": "Lowell",
+      "email": "lowell@gmail.com",
+      "password": "654321"
+    },
+    {
+      "name": "Samon",
+      "email": "samon@mail.com",
+      "password": "12345"
     }
   ]
 }

@@ -1,28 +1,27 @@
-// import { redirect } from "next/navigation"
-// import { getSession, login, logout } from '.lib'
 import Link from "next/link"
 import Form from "@/components/form"
+import Logout from "@/components/logout"
 
 export default function Component() {
   return (
     <div className="flex flex-col min-h-dvh">
-      <header className="bg-primary text-primary-foreground px-4 lg:px-6 h-14 flex items-center">
-        <Link href="/" className="flex items-center justify-center" prefetch={false}>
+      <header className="bg-primary text-primary-foreground justify-between px-4 lg:px-6 h-14 flex items-center">
+        <Link href="./" className="flex items-center justify-center" prefetch={false}>
           <VideoIcon className="size-6 text-primary-foreground" />
           <span className="sr-only">Transcript AI</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        <nav className="flex items-center gap-4 sm:gap-6">
           <Link href="#features" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
             Features
           </Link>
-          <Link href="/#pricing" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+          <Link href="./#pricing" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
             Pricing
           </Link>
           <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
             About
           </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            User
+          <Link href="#form" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+            <Logout />
           </Link>
         </nav>
       </header>
@@ -39,14 +38,14 @@ export default function Component() {
                 </p>
                 <div className="space-x-4 mt-6">
                   <Link
-                    href="/transcribe"
+                    href="./transcribe"
                     className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     prefetch={false}
                   >
                     Upload Video
                   </Link>
                   <Link
-                    href="/#pricing"
+                    href="./#pricing"
                     className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     prefetch={false}
                   >
@@ -56,7 +55,7 @@ export default function Component() {
               </div>
               <div className="flex flex-col items-start space-y-4">
                 <img
-                  src="/placeholder.png"
+                  src="./placeholder.png"
                   width="550"
                   height="310"
                   alt="Hero"
@@ -118,7 +117,7 @@ export default function Component() {
             </div>
             <div className="flex justify-center flex-col sm:flex-row items-start gap-4">
               <Link
-                href="/#pricing"
+                href="./#pricing"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
@@ -134,7 +133,7 @@ export default function Component() {
             </div>
           </div>
         </section>
-        <Form />
+        <Form/>
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-muted-foreground">&copy; 2024 Transcript AI. All rights reserved.</p>

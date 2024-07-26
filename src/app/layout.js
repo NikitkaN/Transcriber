@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { AuthProvider } from '@/context';
 import { cn } from '@/lib/utils'
 import "./globals.css";
 
@@ -24,7 +25,9 @@ export default function Layout({ children }) {
           fontBody.variable
         )}
       >
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )
