@@ -74,7 +74,7 @@ export default function Component() {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Powerful Transcription Tools</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Our platform offers a suite of tools to make transcribing your videos a breeze. From automatic
-                  speech-to-text conversion to easy editing and formatting, we've got you covered.
+                  speech-to-text conversion to easy editing and formatting, we ve got you covered.
                 </p>
               </div>
             </div>

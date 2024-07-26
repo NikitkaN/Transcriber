@@ -200,22 +200,22 @@ export default function Component() {
                 <ScrollArea className="h-72 overflow-auto">
                   <div className="p-4 text-sm">
                     <p>
-                      In this video, we'll discuss the latest trends in the technology industry and how they are shaping
-                      the future of business. We'll cover topics such as artificial intelligence, cloud computing, and
+                      In this video, we`ll discuss the latest trends in the technology industry and how they are shaping
+                      the future of business. We`ll cover topics such as artificial intelligence, cloud computing, and
                       the Internet of Things.
                     </p>
                     <p className="mt-4">
-                      First, let's talk about the rise of artificial intelligence. AI has become a game-changer in many
+                      First, let`s talk about the rise of artificial intelligence. AI has become a game-changer in many
                       industries, from healthcare to finance. We'll explore how companies are using AI to automate
                       processes, improve decision-making, and enhance customer experiences.
                     </p>
                     <p className="mt-4">
-                      Next, we'll dive into the world of cloud computing. Cloud-based solutions have revolutionized the
-                      way businesses store, manage, and access their data. We'll discuss the benefits of cloud
+                      Next, we`ll dive into the world of cloud computing. Cloud-based solutions have revolutionized the
+                      way businesses store, manage, and access their data. We`ll discuss the benefits of cloud
                       computing, such as scalability, cost-effectiveness, and improved collaboration.
                     </p>
                     <p className="mt-4">
-                      Finally, we'll explore the Internet of Things (IoT) and how it's transforming the way we live and
+                      Finally, we`ll explore the Internet of Things (IoT) and how it`s transforming the way we live and
                       work. IoT devices are connecting our homes, cars, and even our bodies to the internet, creating a
                       wealth of data that can be used to improve efficiency, optimize processes, and enhance our daily
                       lives.
