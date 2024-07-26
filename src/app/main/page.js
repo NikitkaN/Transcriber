@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Form from "@/components/form"
 import Logout from "@/components/logout"
+import Image from "next/image"
 
 export default function Component() {
   return (
@@ -54,7 +55,7 @@ export default function Component() {
                 </div>
               </div>
               <div className="flex flex-col items-start space-y-4">
-                <img
+                <Image
                   src="./placeholder.png"
                   width="550"
                   height="310"
