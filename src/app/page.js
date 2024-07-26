@@ -10,7 +10,7 @@ export default function Component() {
   return (
     <div className="flex flex-col min-h-dvh">
       <header className="px-4 lg:px-6 h-14 flex justify-between items-center">
-        <Link href="./main" className="flex items-center justify-center" prefetch={false}>
+        <Link href="/main" className="flex items-center justify-center" prefetch={false}>
           <MountainIcon className="size-6" />
           <span className="sr-only">Transcribe</span>
         </Link>
@@ -21,7 +21,7 @@ export default function Component() {
           <Link href="#pricing" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
             Pricing
           </Link>
-          <Link href="./main#form" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+          <Link href="/main#form" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
             <Logout />
           </Link>
         </nav>
@@ -40,7 +40,7 @@ export default function Component() {
                 </p>
                 <div className="space-x-4 mt-6">
                   <Link
-                    href="./transcribe"
+                    href="/transcribe"
                     className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     prefetch={false}
                   >
@@ -57,7 +57,7 @@ export default function Component() {
               </div>
               <div className="flex justify-center">
                 <Image
-                  src="./placeholder.png"
+                  src="/placeholder.png"
                   width="550"
                   height="310"
                   alt="Hero"

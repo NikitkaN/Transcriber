@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const response = await fetch('./api/checkAuth', { method: 'GET' });
+      const response = await fetch('/api/checkAuth', { method: 'GET' });
       const data = await response.json();
       setIsLoggedIn(data.isLoggedIn);
     };

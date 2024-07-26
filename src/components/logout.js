@@ -11,7 +11,7 @@ export default function Logout() {
 
   const handleLogout = async () => {
       try {
-        const response = await fetch('./api/logout', {
+        const response = await fetch('/api/logout', {
           method: 'GET'
         });
   

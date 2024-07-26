@@ -114,13 +114,13 @@ export default function Component() {
           <h1 className="text-2xl font-bold">Transcribe</h1>
         </div>
         <nav className="flex items-center gap-4">
-          <Link href="./" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+          <Link href="/" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
             Main
           </Link>
           <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
             Account
           </Link>
-          <Link href="./main#form" prefetch={false}>
+          <Link href="/main#form" prefetch={false}>
             <Logout />
           </Link>
         </nav>

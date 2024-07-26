@@ -30,7 +30,7 @@ export default function Form() {
         try {
             let response;
             if (isRegistering) {
-                response = await fetch('./api/sign-up', {
+                response = await fetch('/api/sign-up', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export default function Form() {
                   body: JSON.stringify(formData),
                 });
             } else {
-                response = await fetch('./api/sign-in', {
+                response = await fetch('/api/sign-in', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -61,19 +61,6 @@ export default function Form() {
         } catch (error) {
             setError('An unexpected error occurred');
         }  
-    };
-
-    const handleLogout = async () => {
-      try {
-        const response = await fetch('./api/logout', {
-          method: 'GET'
-        });
-  
-        const data = await response.json();
-        setMessage(data.message);
-      } catch (error) {
-        setError('An unexpected error occurred');
-      }
     };
 
     return (

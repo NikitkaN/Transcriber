@@ -10,6 +10,7 @@ export const verifyToken = (token) => {
   try {
     return jwt.verify(token, secret);
   } catch (error) {
+    console.error('Token verification error:', error);
     return null;
   }
 };
