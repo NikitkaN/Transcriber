@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -8,57 +8,74 @@ import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Component() {
+  const [mediaType, setMediaType] = useState('');
   const [file, setFile] = useState(null);
-  const [mediaType, setMediaType] = useState("video");
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [error, setError] = useState("");
-  const [fileUrl, setFileUrl] = useState("");
+  const [fileUrl, setFileUrl] = useState('');
+  const [error, setError] = useState('');
+  const [dragging, setDragging] = useState(false);
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.size > 50 * 1024 * 1024) { // 50 MB
-      setError("File size should be less than 50 MB");
+  const handleFileChange = (file) => {
+    if (file.size > 50 * 1024 * 1024) {
+      setError('File size exceeds 50 MB');
       setFile(null);
     } else {
-      setError("");
-      setFile(selectedFile);
+      setFile(file);
+      setError('');
     }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragging(false);
+
+    const droppedFile = e.dataTransfer.files[0];
+    handleFileChange(droppedFile);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragging(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file) return;
-
-    setLoading(true);
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("media_type", mediaType);
-
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwOTQ4MDgyLCJpYXQiOjE3MjA5NDcxODIsImp0aSI6ImM4NjE3NTVhOTcxMzRkMzJiYzIzNTE5ZDYzOTcxMWRiIiwidXNlcl9pZCI6Nn0.HWevOQ-2NHGK_x0F3z4NNLi1ZM6EaPN1pZQRSULkBhw`
-        },
-        body: formData,
-      });
-
-      const result = await response.json();
-      console.log(result);
-
-      if (response.ok) {
-        setFileUrl(result.file_url);
-      } else {
-        setError(result.error);
-      }
-
-      setLoading(false);
-    } catch (error) {
-      console.error("Error uploading file:", error);
-      setLoading(false);
+    if (!file) {
+      setError('Please select a file to upload');
+      return;
     }
+    if (!mediaType) {
+      setError('Please select a media type');
+      return;
+    }
+    const fileType = file.type.startsWith('video/') ? 'video' : file.type.startsWith('audio/') ? 'audio' : '';
+    if (fileType !== mediaType) {
+      setError(`Selected file type does not match the chosen media type (${mediaType})`);
+      return;
+    }
+    setLoading(true);
+    setProgress(0);
+
+    const fakeUpload = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(fakeUpload);
+          setLoading(false);
+          setFileUrl(URL.createObjectURL(file));
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 200);
   };
 
   return (
@@ -87,9 +104,16 @@ export default function Component() {
             </CardHeader>
             <CardContent>
               <form className="flex flex-col items-center justify-center gap-4" onSubmit={handleSubmit}>
-                <div>
-                  <input type="file" onChange={handleFileChange} className="hidden" id="file-upload" />
-                  <label htmlFor="file-upload" className="flex flex-col items-center justify-center gap-2 p-8 border-2 border-dashed border-muted rounded-md cursor-pointer">
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  className={`flex flex-col items-center justify-center gap-2 p-8 border-2 border-dashed rounded-md cursor-pointer ${
+                    dragging ? 'border-primary bg-gray-200' : 'border-muted'
+                  }`}
+                >
+                  <input type="file" onChange={(e) => handleFileChange(e.target.files[0])} className="hidden" id="file-upload" />
+                  <label htmlFor="file-upload" className="flex flex-col items-center justify-center gap-2 p-8">
                     <UploadIcon className="w-8 h-8 text-muted-foreground" />
                     <p className="text-muted-foreground">Drag and drop a video file or click to select.</p>
                   </label>
@@ -104,10 +128,28 @@ export default function Component() {
                     <SelectItem value="audio">Audio</SelectItem>
                   </SelectContent>
                 </Select>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="en">English</SelectItem>
+                    <SelectItem value="es">Spanish</SelectItem>
+                    <SelectItem value="fr">French</SelectItem>
+                    <SelectItem value="de">German</SelectItem>
+                  </SelectContent>
+                </Select>
                 <Button type="submit" disabled={loading}>Convert to Transcript</Button>
               </form>
               {loading && <Progress value={progress} className="w-full mt-4" />}
-              {fileUrl && <p className="mt-4 text-green-500">File uploaded successfully. <a href={fileUrl} target="_blank">View file</a></p>}
+              {fileUrl && (
+                <p className="mt-4 text-green-500">
+                  File uploaded successfully.{' '}
+                  <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+                    View file
+                  </a>
+                </p>
+              )}
             </CardContent>
           </Card>
           <Card>
@@ -115,7 +157,7 @@ export default function Component() {
               <CardTitle>Transcript Preview</CardTitle>
               <CardDescription>Your transcript will be displayed here.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent id="result">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-2">
                   <LanguagesIcon className="w-5 h-5 text-muted-foreground" />
